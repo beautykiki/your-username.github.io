@@ -1,0 +1,443 @@
+/* 写信页面样式 */
+.write-container {
+    width: min(500px, 95%);
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* 写信卡片 */
+.write-card {
+    width: 100%;
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
+}
+
+/* 信件标题 */
+.letter-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.letter-title h2 {
+    font-size: min(var(--font-xl), 5vw);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.letter-title .pet-name {
+    color: var(--soft-pink);
+    font-weight: 600;
+}
+
+/* 信件编辑器 */
+.letter-editor {
+    width: 100%;
+    margin: var(--spacing-lg) 0;
+}
+
+/* 工具栏 */
+.toolbar {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.toolbar button {
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-height: var(--touch-target-min);
+    font-size: min(var(--font-md), 3vw);
+}
+
+.toolbar button:hover {
+    background: var(--soft-pink);
+    color: white;
+    border-color: var(--soft-pink);
+    transform: translateY(-2px);
+}
+
+.toolbar button i {
+    font-size: min(var(--font-md), 3vw);
+}
+
+#auto-generate-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    box-shadow: 0 4px 15px rgba(255, 183, 197, 0.4);
+    min-width: min(200px, 80%);
+    justify-content: center;
+}
+
+#auto-generate-btn:hover {
+    background: var(--deep-pink);
+    box-shadow: 0 6px 20px rgba(255, 183, 197, 0.6);
+}
+
+#auto-generate-btn i {
+    margin-right: var(--spacing-sm);
+}
+
+/* 编辑区域 */
+#letter-content {
+    width: 100%;
+    min-height: min(200px, 40vh);
+    height: auto;
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: min(var(--font-lg), 4vw);
+    line-height: 1.8;
+    resize: vertical;
+    transition: all var(--transition-normal);
+    margin-bottom: var(--spacing-lg);
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-overflow-scrolling: touch;
+}
+
+#letter-content:focus {
+    outline: none;
+    border-color: var(--soft-pink);
+    box-shadow: 0 0 0 2px var(--pink-shadow);
+}
+
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 保存草稿按钮 */
+.save-draft-button {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
+    font-size: min(var(--font-md), 3vw);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-width: min(160px, 80%);
+    justify-content: center;
+    min-height: var(--touch-target-min);
+}
+
+.save-draft-button:hover {
+    background: var(--soft-pink);
+    color: white;
+    border-color: var(--soft-pink);
+    transform: translateY(-2px);
+}
+
+/* 发送按钮 */
+.send-button {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-md);
+    font-size: min(var(--font-md), 3vw);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-width: min(160px, 80%);
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(255, 183, 197, 0.4);
+    min-height: var(--touch-target-min);
+}
+
+.send-button:hover {
+    background: var(--deep-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 183, 197, 0.6);
+}
+
+/* 编辑器容器 */
+.letter-editor-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.editor-title {
+    font-size: min(24px, 5vw);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.suggestion-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+    transition: all var(--transition-normal);
+    min-height: var(--touch-target-min);
+    font-size: min(var(--font-md), 3vw);
+}
+
+.suggestion-btn:hover {
+    background: #ff9db0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 183, 197, 0.6);
+}
+
+.suggestion-btn i {
+    font-size: min(16px, 3vw);
+}
+
+.letter-paper {
+    position: relative;
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    width: 100%;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .write-container {
+        width: 95%;
+        padding: var(--spacing-sm);
+    }
+    
+    .write-card {
+        padding: var(--spacing-md);
+    }
+    
+    #letter-content {
+        min-height: min(250px, 50vh);
+        height: min(400px, 60vh);
+        font-size: min(var(--font-md), 4vw);
+        padding: var(--spacing-md);
+    }
+    
+    .button-group {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .save-draft-button,
+    .send-button {
+        width: 100%;
+    }
+    
+    .toolbar {
+        padding: var(--spacing-sm);
+    }
+    
+    .toolbar button {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .editor-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .suggestion-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* 平板适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .write-container {
+        width: 90%;
+    }
+    
+    .toolbar {
+        justify-content: flex-start;
+    }
+    
+    #auto-generate-btn {
+        min-width: 180px;
+    }
+}
+
+/* 桌面端适配 */
+@media (min-width: 1025px) {
+    .write-container {
+        width: 500px;
+    }
+    
+    .toolbar {
+        justify-content: flex-start;
+    }
+    
+    #auto-generate-btn {
+        min-width: 200px;
+    }
+}
+
+.letter-content {
+    position: relative;
+    min-height: 200px;
+    outline: none;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.letter-content:empty:before {
+    content: attr(placeholder);
+    color: #999;
+}
+
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.word-counter-wrapper {
+    color: #666;
+    font-size: 14px;
+}
+
+.editor-tools {
+    display: flex;
+    gap: 10px;
+}
+
+.toolbar-btn {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.toolbar-btn:hover {
+    background: #f5f5f5;
+}
+
+.send-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.draft-btn {
+    background: #f5f5f5;
+    color: #666;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.send-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+}
+
+.send-btn:hover {
+    background: #ff9db0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 183, 197, 0.6);
+}
+
+.send-icon {
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.send-btn:hover .send-icon {
+    transform: translateX(5px);
+}
+
+/* Toast 提示样式 */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast i {
+    font-size: 16px;
+}
+
+.send-button i {
+    font-size: var(--font-md);
+    color: white;
+}
+
+.save-draft-button i {
+    font-size: var(--font-md);
+    color: inherit;
+} 

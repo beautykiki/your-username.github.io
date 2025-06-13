@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "首页",
+    "write": "写信",
+    "inbox": "收信箱",
+    "capsule": "时光胶囊"
+  },
+  "pet": {
+    "title": "宠物信息",
+    "name": "昵称",
+    "namePlaceholder": "毛孩子的名字",
+    "type": "类型",
+    "selectType": "请选择类型",
+    "typeCat": "猫咪",
+    "typeDog": "狗狗",
+    "typeOther": "其他",
+    "breed": "品种",
+    "breedPlaceholder": "例如：金毛、布偶猫",
+    "status": "宠物状态",
+    "statusWithMe": "💖 在身边",
+    "statusInHeaven": "🪐 去宠星",
+    "birthDate": "出生日期",
+    "adoptDate": "到家日期",
+    "datePlaceholder": "例如：2025/6/8",
+    "dateFormat": "请按照 年/月/日 的格式输入",
+    "save": "保存宠物信息",
+    "uploadPhoto": "上传宠物照片",
+    "uploadTip": "支持 JPG、PNG、GIF、WEBP 格式，大小不超过 5MB",
+    "unnamed": "未命名",
+    "age": "年龄",
+    "togetherDays": "相伴天数"
+  },
+  "letter": {
+    "title": "给{name}的信",
+    "placeholder": "写下你想说的话...",
+    "saveDraft": "保存草稿",
+    "send": "寄往彩虹桥",
+    "autoGenerate": "帮我表达思念 ✨"
+  },
+  "capsule": {
+    "upload": "点击上传照片",
+    "photoCount": "已存入 {count} 张照片",
+    "clear": "清空照片",
+    "slideshow": "播放幻灯片",
+    "memoryTitle": "时光记忆"
+  },
+  "common": {
+    "appName": "Time Capsule",
+    "edit": "编辑",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "loading": "加载中..."
+  }
+} 

@@ -1,0 +1,216 @@
+/* 写信页面样式 */
+.write-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 写信编辑器容器 */
+.letter-editor-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* 编辑器头部 */
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.editor-title {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+.editor-title .pet-name {
+    color: var(--soft-pink);
+}
+
+/* 智能写信助手按钮 */
+.suggestion-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.suggestion-btn:hover {
+    background: var(--deep-pink);
+    transform: translateY(-2px);
+}
+
+.suggestion-btn i {
+    font-size: 14px;
+}
+
+/* 智能信纸 */
+.letter-paper {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    position: relative;
+}
+
+.paper-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 216, 177, 0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255, 216, 177, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+/* 信件内容编辑区 */
+.letter-content {
+    position: relative;
+    min-height: 200px;
+    padding: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    outline: none;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.letter-content:focus {
+    border-color: var(--soft-pink);
+    background: white;
+}
+
+/* 编辑器底部 */
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.word-counter-wrapper {
+    color: #666;
+    font-size: 14px;
+}
+
+.editor-tools {
+    display: flex;
+    gap: 8px;
+}
+
+.toolbar-btn {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.toolbar-btn:hover {
+    background: #eee;
+    color: var(--soft-pink);
+}
+
+.toolbar-btn i {
+    font-size: 14px;
+}
+
+/* 发送按钮区域 */
+.send-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.draft-btn {
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.draft-btn:hover {
+    background: #e0e0e0;
+}
+
+.send-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.send-btn:hover {
+    background: var(--deep-pink);
+    transform: translateY(-2px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .write-container {
+        padding: 10px;
+    }
+    
+    .letter-editor-container {
+        padding: 15px;
+    }
+    
+    .editor-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .letter-paper {
+        padding: 15px;
+    }
+    
+    .editor-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .send-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .draft-btn,
+    .send-btn {
+        width: 100%;
+        justify-content: center;
+    }
+} 

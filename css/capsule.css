@@ -1,0 +1,1213 @@
+/* 时光胶囊页面样式 */
+.capsule-container {
+    width: min(800px, 95%);
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    position: relative;
+}
+
+.glass-capsule {
+    position: relative;
+    width: min(300px, 80vw);
+    height: min(500px, 90vh);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: min(150px, 40vw);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.3) 10%,
+        rgba(255, 255, 255, 0.25) 90%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 移除::before和::after伪元素的光晕效果 */
+.glass-capsule::before,
+.glass-capsule::after {
+    display: none;
+}
+
+.capsule-bottom-light {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: min(50px, 10vh);
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.capsule-edge-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    animation: edgeLight 3s infinite;
+    border-radius: min(150px, 40vw);
+}
+
+@keyframes edgeLight {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.capsule-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+.upload-area {
+    width: min(210px, 60vw);
+    height: min(210px, 60vw);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    opacity: 0;
+    visibility: hidden;
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.glass-capsule:hover .upload-area,
+.glass-capsule:active .upload-area {
+    opacity: 1;
+    visibility: visible;
+}
+
+.upload-area:hover,
+.upload-area:active {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.upload-area i {
+    font-size: min(40px, 10vw);
+    color: var(--soft-pink);
+    margin-bottom: var(--spacing-sm);
+    transition: all var(--transition-normal);
+}
+
+.upload-area p {
+    color: var(--soft-pink);
+    font-size: min(14px, 3.5vw);
+    margin: 0;
+    transition: all var(--transition-normal);
+}
+
+.upload-area:hover i,
+.upload-area:hover p {
+    color: #ff9db0;
+}
+
+.photo-counter {
+    position: absolute;
+    top: var(--spacing-lg);
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--soft-pink);
+    font-size: min(14px, 3.5vw);
+    opacity: 1;
+    transform: translateY(0);
+    transition: all var(--transition-normal);
+    visibility: visible;
+}
+
+.photo-counter.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* 照片容器 */
+.photo-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(280px, 80vw);
+    height: min(350px, 90vh);
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    pointer-events: none;
+}
+
+.photo-container.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+    display: block;
+}
+
+/* 翻转卡片容器 */
+.flip-card {
+    width: min(280px, 80vw);
+    height: min(350px, 90vh);
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* 正反面公共样式 */
+.flip-front,
+.flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.8s;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    top: 0;
+    left: 0;
+}
+
+/* 正面样式 */
+.flip-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    position: relative;
+}
+
+/* 正面按钮容器 */
+.flip-front-buttons {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-normal);
+}
+
+.flip-front:hover .flip-front-buttons,
+.flip-front:active .flip-front-buttons {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 翻转按钮 */
+.flip-button {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    color: var(--soft-pink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: min(14px, 3.5vw);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.flip-button:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 投送胶囊按钮 */
+.send-to-capsule {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: min(14px, 3.5vw);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.send-to-capsule:hover {
+    background: #ff9db0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 183, 197, 0.4);
+}
+
+/* 背面编辑区域 */
+.flip-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #fffaf0 0%, #fff5e6 100%);
+    overflow: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.flip-card.flipped .flip-front {
+    transform: rotateY(180deg);
+}
+
+.flip-card.flipped .flip-back {
+    transform: rotateY(0deg);
+}
+
+/* 编辑区域内容容器 */
+.back-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 20px;
+    background: linear-gradient(135deg, #fffaf0 0%, #fff5e6 100%);
+    position: relative;
+}
+
+.back-to-front {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: var(--soft-pink);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.back-to-front:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 记忆展示区域 */
+.memory-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(135deg, #fffaf0 0%, #fff5e6 100%);
+}
+
+.memory-date {
+    color: var(--soft-pink);
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.memory-text {
+    color: var(--soft-pink);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 80%;
+    word-break: break-word;
+}
+
+/* 编辑区域 */
+.edit-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #fffaf0 0%, #fff5e6 100%);
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.edit-prompt {
+    color: var(--soft-pink);
+    text-align: center;
+    padding: 15px;
+    opacity: 0.7;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 250, 240, 0.4) 0%,
+        rgba(255, 245, 230, 0.4) 100%
+    );
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 编辑表单 */
+.edit-form {
+    width: 100%;
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.date-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--soft-pink);
+    border-radius: 10px;
+    font-size: 14px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(255, 183, 197, 0.2);
+    transition: all 0.3s;
+}
+
+.date-input:focus {
+    outline: none;
+    box-shadow: 0 2px 12px rgba(255, 183, 197, 0.3);
+}
+
+.memory-input {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 1px solid var(--soft-pink);
+    border-radius: 10px;
+    font-size: 14px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(255, 183, 197, 0.2);
+    resize: none;
+    transition: all 0.3s;
+}
+
+.memory-input:focus {
+    outline: none;
+    box-shadow: 0 2px 12px rgba(255, 183, 197, 0.3);
+}
+
+/* 保存按钮样式 */
+.save-button {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(255, 183, 197, 0.3);
+    transition: all 0.3s;
+}
+
+.save-button:hover {
+    background: #ff9db0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 183, 197, 0.4);
+}
+
+.memory-content {
+    margin-bottom: 20px;
+}
+
+.memory-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* 幻灯片按钮样式 */
+.slideshow-btn {
+    position: fixed;
+    bottom: calc(var(--nav-height) + var(--spacing-lg));
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: min(16px, 4vw);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    z-index: 100;
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.slideshow-btn:hover {
+    background: #ff9db0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 183, 197, 0.6);
+}
+
+.slideshow-btn:not(.disabled) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slideshow-btn.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* 幻灯片模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+}
+
+/* 自定义滚动条样式 */
+.modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.slideshow-content {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    position: fixed;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    padding: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.modal-header h3 {
+    display: none; /* 隐藏标题 */
+}
+
+/* 模态框主体样式 */
+.modal-body {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 改为向上对齐 */
+    background: transparent;
+    padding-top: 80px; /* 添加顶部间距 */
+    padding-bottom: 100px; /* 添加底部间距 */
+}
+
+.slideshow-container {
+    width: 100%;
+    height: 90%; /* 调整高度从60%到90% */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.slide-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 幻灯片列表容器 */
+#slideshow-slides {
+    display: flex; /* 保持水平排列 */
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out; /* 保持过渡效果 */
+}
+
+/* 单个幻灯片样式 */
+.slide {
+    flex: 0 0 100%; /* 保持宽度 */
+    width: 100%;
+    height: 100%; /* 保持高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* 幻灯片内容样式 */
+.slide-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+/* 图片包装器样式优化 */
+.slide-image-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.slide-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+/* 文字包装器样式优化 */
+.slide-text-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+/* 布局样式优化 */
+.layout-left {
+    flex-direction: row;
+    gap: 20px;
+}
+
+.layout-right {
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+
+/* 布局特定样式优化 */
+.layout-left .slide-image-wrapper,
+.layout-right .slide-image-wrapper {
+    width: 60%;
+    height: 100%;
+}
+
+.layout-left .slide-text-wrapper,
+.layout-right .slide-text-wrapper {
+    width: 40%;
+    height: 100%;
+}
+
+/* 文字样式优化 */
+.slide-date {
+    font-size: 1.2em;
+    color: var(--soft-pink);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.slide-desc {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #666;
+    max-height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+/* 关闭按钮样式 */
+.close-modal {
+    display: none;
+}
+
+/* 幻灯片控制按钮容器 */
+.slideshow-controls {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+    width: auto;
+    min-width: 200px;
+    justify-content: space-between;
+}
+
+.control-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 20px;
+    opacity: 0.7;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+}
+
+/* 左侧按钮 */
+.control-btn.left-btn {
+    left: 20px;
+    border-radius: 50% 0 0 50%;
+}
+
+/* 右侧按钮 */
+.control-btn.right-btn {
+    right: 20px;
+    border-radius: 0 50% 50% 0;
+}
+
+/* 按钮悬停效果 */
+.control-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* 页码信息 */
+.slide-info {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+}
+
+/* 播放速度控制按钮样式 */
+.speed-controls {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.speed-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.speed-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.speed-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 胶囊星星样式 */
+.capsule-star {
+    position: absolute;
+    color: rgba(255, 215, 0, 0.8);
+    font-size: 20px;
+    opacity: 0.8;
+    transform: scale(1);
+    transition: all 0.5s ease-out;
+    z-index: 2;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+    animation: starTwinkle 2s ease-in-out infinite;
+    pointer-events: none;
+    transform-origin: center center;
+}
+
+.capsule-star.show {
+    opacity: 0.8;
+    transform: scale(1);
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+/* 添加全局盒模型设置 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 清空按钮样式 */
+.clear-capsule-btn {
+    position: fixed;
+    bottom: calc(var(--nav-height) + var(--spacing-xl) * 2 + 50px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff6b6b;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: min(14px, 3.5vw);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    z-index: 100;
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.clear-capsule-btn:hover {
+    background: var(--soft-pink);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 183, 197, 0.4);
+}
+
+.clear-capsule-btn i {
+    font-size: 16px;
+}
+
+/* 更换照片按钮样式 */
+.change-photo-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: var(--soft-pink);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.change-photo-btn:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.change-photo-btn i {
+    font-size: 14px;
+}
+
+/* 移除居中布局相关样式 */
+.layout-center {
+    display: none;
+}
+
+.layout-center .slide-image-wrapper,
+.layout-center .slide-text-wrapper {
+    display: none;
+}
+
+/* 幻灯片播放时的导航栏样式 */
+.modal.show ~ nav {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(100%) !important;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* 鼠标悬停在底部时显示导航栏 */
+.modal.show:hover ~ nav {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto;
+}
+
+/* 添加底部悬停区域 */
+.modal::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: transparent;
+    z-index: 999;
+}
+
+/* Toast提示样式 */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2000;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast i {
+    color: #ff9db0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .capsule-container {
+        padding: var(--spacing-md);
+    }
+    
+    .glass-capsule {
+        width: min(280px, 85vw);
+        height: min(450px, 80vh);
+    }
+    
+    .upload-area {
+        width: min(180px, 50vw);
+        height: min(180px, 50vw);
+    }
+    
+    .photo-container {
+        width: min(260px, 85vw);
+        height: min(330px, 80vh);
+    }
+    
+    .flip-card {
+        width: min(260px, 85vw);
+        height: min(330px, 80vh);
+    }
+    
+    .slideshow-btn {
+        bottom: calc(var(--nav-height) + var(--spacing-md));
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+    
+    .clear-capsule-btn {
+        position: absolute;
+        top: calc(-1 * (var(--spacing-xl) + 40px));
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+
+    .close-modal {
+        display: flex !important;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 1002;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+    }
+
+    .close-modal i {
+        color: white;
+    }
+
+    /* 调整速度控制按钮位置 */
+    .speed-controls {
+        position: fixed;
+        top: 20px;
+        right: 80px;
+        transform: none;
+        margin: 0;
+        display: flex;
+        gap: 10px;
+        z-index: 1002;
+    }
+
+    .speed-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        backdrop-filter: blur(5px);
+    }
+
+    .speed-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .speed-btn.active {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .exit-slideshow {
+        display: flex !important;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+    /* 移动端幻灯片布局 */
+    .slide-content {
+        flex-direction: column !important;
+        gap: 15px !important;
+        padding: 15px !important;
+    }
+
+    .slide-image-wrapper {
+        width: 100% !important;
+        height: 80% !important;
+        padding: 10px !important;
+    }
+
+    .slide-text-wrapper {
+        width: 100% !important;
+        height: 20% !important;
+        padding: 10px !important;
+    }
+
+    .slide-date {
+        font-size: 1em;
+        margin-bottom: 8px;
+    }
+
+    .slide-desc {
+        font-size: 0.9em;
+        max-height: none;
+        line-height: 1.4;
+    }
+
+    /* 移除左右布局在移动端的样式 */
+    .layout-left,
+    .layout-right {
+        flex-direction: column !important;
+    }
+
+    .layout-left .slide-image-wrapper,
+    .layout-right .slide-image-wrapper,
+    .layout-left .slide-text-wrapper,
+    .layout-right .slide-text-wrapper {
+        width: 100% !important;
+    }
+}
+
+/* 平板适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .capsule-container {
+        width: 90%;
+    }
+    
+    .glass-capsule {
+        width: min(300px, 70vw);
+        height: min(500px, 85vh);
+    }
+}
+
+/* 桌面端适配 */
+@media (min-width: 1025px) {
+    .capsule-container {
+        width: 800px;
+    }
+    
+    .glass-capsule {
+        width: 300px;
+        height: 500px;
+    }
+}
+
+/* 幻灯片退出按钮样式 */
+.exit-slideshow {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.exit-slideshow:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.exit-slideshow i {
+    color: white;
+} 

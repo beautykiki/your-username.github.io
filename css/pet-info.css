@@ -1,0 +1,385 @@
+/* 宠物信息展示区域 */
+.pet-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    background: rgba(255, 247, 237, 0.5);
+    position: relative;
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.pet-display.hidden {
+    opacity: 0;
+    transform: translateX(-50px);
+    pointer-events: none;
+}
+
+.pet-form-container.hidden {
+    display: none;
+}
+
+.pet-avatar {
+    width: min(180px, 40vw);
+    height: min(180px, 40vw);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.25rem solid var(--soft-pink);
+    box-shadow: 0 10px 25px rgba(255, 183, 197, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    background: #f8f4f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: min(4rem, 8vw);
+    color: var(--soft-pink);
+}
+
+.pet-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(255, 183, 197, 0.4);
+}
+
+.pet-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-avatar .edit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.pet-avatar:hover .edit-overlay {
+    opacity: 1;
+}
+
+.pet-info {
+    margin-top: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.pet-name {
+    font-size: min(2.5rem, 5vw);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.pet-stats {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.stat-item {
+    background: white;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    min-width: min(180px, 40vw);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.stat-value {
+    font-size: min(2.2rem, 4vw);
+    font-weight: 700;
+    color: var(--soft-pink);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: min(1.1rem, 3vw);
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* 宠物信息表单样式 */
+.pet-form-container {
+    flex: 1;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.pet-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-title {
+    text-align: center;
+    font-size: min(2rem, 4vw);
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+.form-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5rem;
+    height: 0.25rem;
+    background: var(--soft-pink);
+    border-radius: 0.125rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: min(1.1rem, 3vw);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 0.125rem solid #e0d6c9;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: min(1.1rem, 3vw);
+    transition: all 0.3s ease;
+    min-height: var(--touch-target-min);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--soft-pink);
+    box-shadow: 0 0 0 0.125rem rgba(255, 183, 197, 0.3);
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: min(250px, 100%);
+}
+
+.avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.avatar-preview {
+    width: min(140px, 30vw);
+    height: min(140px, 30vw);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.125rem dashed var(--soft-pink);
+    margin-bottom: 1.25rem;
+    background: #f8f4f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--soft-pink);
+    font-size: min(3.5rem, 7vw);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.avatar-preview:hover {
+    transform: scale(1.05);
+    border-style: solid;
+}
+
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+    font-size: min(1.1rem, 3vw);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+    min-height: var(--touch-target-min);
+}
+
+.upload-btn:hover {
+    background: #ff9db0;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 183, 197, 0.5);
+}
+
+.upload-tip {
+    font-size: min(0.9rem, 2.5vw);
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.status-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.status-option {
+    flex: 1;
+    padding: 0.75rem;
+    border: 0.125rem solid #e0d6c9;
+    border-radius: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: min(1rem, 2.5vw);
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-option:hover {
+    border-color: var(--soft-pink);
+    background: rgba(255, 183, 197, 0.1);
+}
+
+.status-option.active {
+    background: var(--soft-pink);
+    color: white;
+    border-color: var(--soft-pink);
+}
+
+.submit-btn {
+    background: var(--soft-pink);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 1.5rem;
+    font-size: min(1.1rem, 3vw);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(255, 183, 197, 0.4);
+    min-height: var(--touch-target-min);
+}
+
+.submit-btn:hover {
+    background: #ff9db0;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 183, 197, 0.5);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .pet-display {
+        padding: var(--spacing-md);
+    }
+    
+    .pet-form-container {
+        padding: var(--spacing-md);
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .pet-stats {
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        min-width: 100%;
+    }
+}
+
+/* 平板适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .pet-display {
+        padding: var(--spacing-lg);
+    }
+    
+    .pet-form-container {
+        padding: var(--spacing-lg);
+    }
+    
+    .form-row {
+        gap: 1.5rem;
+    }
+}
+
+/* 桌面端适配 */
+@media (min-width: 1025px) {
+    .pet-display {
+        padding: var(--spacing-xl);
+    }
+    
+    .pet-form-container {
+        padding: var(--spacing-xl);
+    }
+    
+    .form-row {
+        gap: 2rem;
+    }
+} 

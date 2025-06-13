@@ -1,0 +1,613 @@
+/* 收信箱页面样式 */
+.letters-container {
+    width: min(800px, 95%);
+    margin: 0 auto;
+    padding: var(--spacing-md) 0;
+}
+
+.letters-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+}
+
+/* 信件项样式 */
+.letter-item {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    width: min(85%, 600px);
+    margin: 0 auto;
+    display: block;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.letter-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.letter-item.unread {
+    background: rgba(255, 216, 177, 0.3);
+}
+
+.letter-item.unread::before {
+    content: '';
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: min(6px, 1.5vw);
+    height: min(6px, 1.5vw);
+    background: var(--soft-pink);
+    border-radius: 50%;
+}
+
+/* 有回信时的样式 */
+.letter-item.has-reply::after {
+    content: '';
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: min(8px, 2vw);
+    height: min(8px, 2vw);
+    background: var(--soft-pink);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--soft-pink);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 216, 177, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(255, 216, 177, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 216, 177, 0);
+    }
+}
+
+/* 同时有未读和回信时的样式 */
+.letter-item.unread.has-reply::before {
+    right: 30px;
+}
+
+.letter-item.unread.has-reply::after {
+    right: 15px;
+}
+
+/* 信件头像 */
+.letter-avatar {
+    width: min(50px, 12vw);
+    height: min(50px, 12vw);
+    background: var(--soft-pink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: min(24px, 6vw);
+    flex-shrink: 0;
+}
+
+/* 信件内容 */
+.letter-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    height: auto;
+    padding-right: min(40px, 10vw);
+}
+
+.letter-date {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: min(0.85rem, 3.5vw);
+    margin-bottom: var(--spacing-xs);
+    display: block;
+}
+
+.letter-preview {
+    color: var(--text-color);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.6em;
+    margin: 0;
+    font-size: min(0.95rem, 4vw);
+    display: block;
+}
+
+/* 删除按钮 */
+.delete-letter {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    opacity: 0;
+    transition: all var(--transition-normal);
+    border-radius: 50%;
+    width: min(32px, 8vw);
+    height: min(32px, 8vw);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.letter-item:hover .delete-letter {
+    opacity: 1;
+}
+
+.unread-dot {
+    display: none;
+}
+
+.letter-item.has-reply .unread-dot {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--soft-pink);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--soft-pink);
+    animation: pulse 2s infinite;
+}
+
+/* 空状态 */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 28px;
+    color: var(--soft-pink);
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* 信件详情样式 */
+.letter-detail-container {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    width: min(90%, 600px);
+    margin: var(--spacing-lg) auto;
+    box-shadow: var(--shadow-md);
+}
+
+.letter-detail-header {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.letter-detail-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: min(1.2em, 5vw);
+}
+
+.letter-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background: #fff !important;
+}
+
+/* 信件内容样式 */
+.original-letter {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: min(1rem, 4vw);
+}
+
+/* 回信部分样式 */
+.reply-section {
+    background: rgba(230, 240, 255, 0.7);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+}
+
+.reply-section h4 {
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: min(1.1em, 4.5vw);
+}
+
+.reply-content {
+    width: 100%;
+    font-size: min(1rem, 4vw);
+    line-height: 1.6;
+}
+
+/* 自定义滚动条样式 */
+.reply-content::-webkit-scrollbar {
+    width: min(6px, 1.5vw);
+}
+
+.reply-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.reply-content::-webkit-scrollbar-thumb {
+    background: var(--soft-pink);
+    border-radius: var(--radius-sm);
+}
+
+.reply-content::-webkit-scrollbar-thumb:hover {
+    background: var(--deep-pink);
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.letter-item {
+    animation: slideIn 0.3s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .letters-container {
+        width: 95%;
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .letter-item {
+        width: 95%;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .letter-avatar {
+        width: min(40px, 10vw);
+        height: min(40px, 10vw);
+    }
+    
+    .letter-detail-container {
+        width: 95%;
+        margin: var(--spacing-md) auto;
+    }
+    
+    .letter-detail-body {
+        padding: var(--spacing-md);
+    }
+    
+    .reply-section,
+    .original-letter {
+        padding: var(--spacing-md);
+    }
+    
+    .reply-content {
+        font-size: min(0.95rem, 3.8vw);
+    }
+}
+
+/* 平板适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .letters-container {
+        width: 90%;
+    }
+    
+    .letter-item {
+        width: 90%;
+    }
+}
+
+/* 桌面端适配 */
+@media (min-width: 1025px) {
+    .letters-container {
+        width: 800px;
+    }
+    
+    .letter-item {
+        width: 85%;
+    }
+}
+
+/* 信件详情模态框 */
+.letter-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+}
+
+.letter-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 1002;
+}
+
+.close-modal:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    position: relative;
+    width: min(90%, 600px);
+    max-height: 90vh;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(20px);
+    transition: all var(--transition-normal);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.letter-modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.letter-paper {
+    background: #fffaf3;
+    background-image: 
+        linear-gradient(to bottom, rgba(255, 240, 220, 0.3) 0%, transparent 20px),
+        repeating-linear-gradient(to bottom, rgba(0,0,0,0.03), rgba(0,0,0,0.03) 1px, transparent 1px, transparent 30px);
+    border: 1px solid #f5e1c6;
+    border-radius: 12px;
+    box-shadow: 
+        0 2px 12px rgba(0, 0, 0, 0.05),
+        inset 0 0 20px rgba(255, 230, 200, 0.3);
+    padding: 35px 30px;
+    min-height: 400px;
+    color: #5a4a42;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.letter-greeting {
+    font-size: 15px;
+    margin-bottom: 3em;
+    color: #5a4a42;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    text-align: left;
+    width: 100%;
+}
+
+.letter-body {
+    flex: 1;
+    width: 100%;
+    margin-bottom: 4em;
+}
+
+.letter-body p {
+    margin-bottom: 2em;
+    text-indent: 2em;
+    line-height: 1.8;
+    text-align: left;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 15px;
+    width: 100%;
+}
+
+.letter-signature {
+    position: absolute;
+    bottom: 35px;
+    right: 30px;
+    text-align: right;
+    font-size: 15px;
+    color: #5a4a42;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    width: auto;
+    white-space: nowrap;
+}
+
+/* 添加温馨的装饰角 */
+.letter-paper::before,
+.letter-paper::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ffd8b1; /* 浅橙色边框 */
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+.letter-paper::before {
+    top: 15px;
+    left: 15px;
+}
+
+.letter-paper::after {
+    bottom: 15px;
+    right: 15px;
+}
+
+/* 段落样式 */
+.letter-paper p {
+    margin-bottom: 1.2em; /* 舒适的段落间距 */
+    text-indent: 2em; /* 首行缩进 */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .letter-paper {
+        padding: 25px 20px;
+        min-height: 300px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    .letter-greeting {
+        font-size: 18px;
+        margin-bottom: 1.5em;
+    }
+    
+    .letter-signature {
+        font-size: 18px;
+        margin-top: 2em;
+    }
+    
+    .letter-paper::before,
+    .letter-paper::after {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.letter-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.letter-header h3 {
+    color: #5c4b51;
+    font-size: 24px;
+    margin: 0;
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+.letter-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.original-letter {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    color: #5c4b51;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.reply-section {
+    background: rgba(230, 240, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.reply-section h4 {
+    color: #5c4b51;
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+.reply-content {
+    width: 100%;
+}
+
+/* 自定义滚动条样式 */
+.reply-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.reply-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.reply-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.reply-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .letter-header h3 {
+        font-size: 20px;
+    }
+    
+    .reply-section h4 {
+        font-size: 18px;
+    }
+    
+    .original-letter,
+    .reply-content {
+        font-size: 15px;
+    }
+} 

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Capsule | 给毛孩子的时光胶囊</title>
+
+    <!-- 基础样式 -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- 功能样式 -->
+    <link rel="stylesheet" href="css/language.css">
+    <link rel="stylesheet" href="css/pet-info.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/letter.css">
+    <link rel="stylesheet" href="css/inbox.css">
+    <link rel="stylesheet" href="css/capsule.css">
+    
+    <!-- 外部资源 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        .language-btn {
+            color: #ff6b8b !important;
+        }
+        .language-btn i {
+            color: #ff6b8b !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰元素 -->
+    <div class="decoration star"><i class="fas fa-star"></i></div>
+    <div class="decoration heart"><i class="fas fa-heart"></i></div>
+    <div class="decoration music"><i class="fas fa-music"></i></div>
+    <div class="decoration star"><i class="far fa-star"></i></div>
+    <div class="decoration heart"><i class="fas fa-heart"></i></div>
+    <div class="decoration music"><i class="fas fa-music"></i></div>
+    
+    <div class="container">
+        <!-- 顶部Logo -->
+        <div class="top-logo">
+            <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <span data-i18n="common.appName">Time Capsule</span>
+            </div>
+            <div class="language-switcher">
+                <button class="language-btn" id="language-btn">
+                    <i class="fas fa-globe"></i>
+                    <span class="current-lang">中文</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-dropdown" id="language-dropdown">
+                    <a href="#" data-lang="zh" class="active">中文</a>
+                    <a href="#" data-lang="en">English</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 首页内容 -->
+            <div class="content" id="home-content">
+                <!-- 宠物信息展示区域 -->
+                <div class="pet-display" id="pet-display">
+                    <div class="pet-avatar" id="pet-avatar-display">
+                        <i class="fas fa-paw"></i>
+                        <div class="edit-overlay">
+                            <i class="fas fa-edit"></i>
+                            <span data-i18n="common.edit">编辑</span>
+                        </div>
+                    </div>
+                    <div class="pet-info">
+                        <div class="pet-name" id="pet-name-display" data-i18n="pet.unnamed">未命名</div>
+                        <div class="pet-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="pet-age-display">0岁</div>
+                                <div class="stat-label" data-i18n="pet.age">年龄</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="together-days-display">0天</div>
+                                <div class="stat-label" data-i18n="pet.togetherDays">相伴天数</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 宠物信息表单 -->
+                <div class="pet-form-container" id="pet-form-container">
+                    <form id="pet-form" class="pet-form">
+                        <h2 class="form-title" data-i18n="pet.title">宠物信息</h2>
+                        
+                        <div class="avatar-upload">
+                            <div class="avatar-preview" id="avatar-preview">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <button type="button" class="upload-btn" id="upload-btn">
+                                <i class="fas fa-upload"></i> <span data-i18n="pet.uploadPhoto">上传宠物照片</span>
+                            </button>
+                            <input type="file" id="avatar-upload" accept="image/jpeg,image/png,image/gif,image/webp" class="hidden">
+                            <p class="upload-tip" data-i18n="pet.uploadTip">支持 JPG、PNG、GIF、WEBP 格式，大小不超过 5MB</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pet-name" data-i18n="pet.name"><i class="fas fa-tag"></i> 昵称</label>
+                            <input type="text" id="pet-name" class="form-control" data-i18n-placeholder="pet.namePlaceholder" placeholder="毛孩子的名字" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pet-type" data-i18n="pet.type"><i class="fas fa-paw"></i> 类型</label>
+                                <select id="pet-type" class="form-control" required>
+                                    <option value="" data-i18n="pet.selectType">请选择类型</option>
+                                    <option value="cat" data-i18n="pet.typeCat">猫咪</option>
+                                    <option value="dog" data-i18n="pet.typeDog">狗狗</option>
+                                    <option value="other" data-i18n="pet.typeOther">其他</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pet-breed" data-i18n="pet.breed"><i class="fas fa-dna"></i> 品种</label>
+                                <input type="text" id="pet-breed" class="form-control" data-i18n-placeholder="pet.breedPlaceholder" placeholder="例如：金毛、布偶猫">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-i18n="pet.status"><i class="fas fa-heart"></i> 宠物状态</label>
+                            <div class="status-options">
+                                <div class="status-option" data-status="with-me" data-i18n="pet.statusWithMe">
+                                    💖 在身边
+                                </div>
+                                <div class="status-option" data-status="in-heaven" data-i18n="pet.statusInHeaven">
+                                    🪐 去宠星
+                                </div>
+                            </div>
+                            <input type="hidden" id="pet-status" value="with-me">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="birth-date" data-i18n="pet.birthDate"><i class="fas fa-birthday-cake"></i> 出生日期</label>
+                                <input type="text" id="birth-date" class="form-control" data-i18n-placeholder="pet.datePlaceholder" placeholder="例如：2025/6/8" required>
+                                <small class="form-text" data-i18n="pet.dateFormat">请按照 年/月/日 的格式输入</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="adopt-date" data-i18n="pet.adoptDate"><i class="fas fa-home"></i> 到家日期</label>
+                                <input type="text" id="adopt-date" class="form-control" data-i18n-placeholder="pet.datePlaceholder" placeholder="例如：2025/6/8" required>
+                                <small class="form-text" data-i18n="pet.dateFormat">请按照 年/月/日 的格式输入</small>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-cloud-upload-alt"></i> <span data-i18n="pet.save">保存宠物信息</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 写信页面 -->
+            <div class="content" id="write-content" style="display: none;">
+                <div class="write-container">
+                    <div class="write-card">
+                        <form class="write-form">
+                            <!-- 信件标题 -->
+                            <div class="letter-title">
+                                <h2 data-i18n="letter.title" data-i18n-params='{"name": ""}'>给<span class="pet-name"></span>的信</h2>
+                            </div>
+                            
+                            <!-- 信件内容编辑器 -->
+                            <div class="letter-editor">
+                                <!-- 工具栏 -->
+                                <div class="toolbar">
+                                    <button type="button" id="bold-btn" title="加粗">
+                                        <i class="fas fa-bold"></i>
+                                    </button>
+                                    <button type="button" id="italic-btn" title="斜体">
+                                        <i class="fas fa-italic"></i>
+                                    </button>
+                                    <button type="button" id="auto-generate-btn" title="智能生成" data-i18n="letter.autoGenerate">
+                                        帮我表达思念 ✨
+                                    </button>
+                                </div>
+                                
+                                <!-- 编辑区域 -->
+                                <textarea id="letter-content" data-i18n-placeholder="letter.placeholder" placeholder="写下你想说的话..."></textarea>
+                            </div>
+                            
+                            <!-- 按钮组 -->
+                            <div class="button-group">
+                                <button type="button" id="save-draft-btn" class="save-draft-button" data-i18n="letter.saveDraft">
+                                    <i class="fas fa-save"></i>
+                                    保存草稿
+                                </button>
+                                <button type="button" id="send-btn" class="send-button" data-i18n="letter.send">
+                                    <i class="fas fa-paper-plane"></i>
+                                    寄往彩虹桥
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 收信箱页面 -->
+            <div class="content" id="inbox-content" style="display: none;">
+                <div class="letters-container">
+                    <div id="letters-list" class="letters-list">
+                        <!-- 信件列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 信件详情模态框 -->
+                <div id="letter-detail-modal" class="letter-modal">
+                    <div class="modal-overlay"></div>
+                    <div class="modal-content">
+                        <button class="close-modal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="letter-paper">
+                            <div class="letter-greeting" data-i18n="letter.greeting">亲爱的主人：</div>
+                            <div class="letter-body" id="reply-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 时光胶囊页面 -->
+            <div class="content" id="capsule-content" style="display: none;">
+                <div class="capsule-container">
+                    <div class="glass-capsule">
+                        <div class="capsule-bottom-light"></div>
+                        <div class="capsule-edge-light"></div>
+                        <div class="capsule-content">
+                            <div class="upload-area" id="upload-trigger">
+                                <i class="fas fa-camera"></i>
+                                <p data-i18n="capsule.upload">点击上传照片</p>
+                            </div>
+                            <div class="photo-counter" id="photo-counter">
+                                <span data-i18n="capsule.photoCount" data-i18n-params='{"count": 0}'>已存入 0 张照片</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 添加清空按钮 -->
+                    <button id="clear-capsule-btn" class="clear-capsule-btn" data-i18n="capsule.clear">
+                        <i class="fas fa-trash-alt"></i>
+                        清空照片
+                    </button>
+                </div>
+                <!-- 修改幻灯片播放按钮位置 -->
+                <button id="slideshow-btn" class="slideshow-btn" data-i18n="capsule.slideshow">
+                    <i class="fas fa-film"></i>
+                    播放幻灯片
+                </button>
+            </div>
+
+            <!-- 添加幻灯片模态框 -->
+            <div id="slideshow-modal" class="modal">
+                <div class="modal-content slideshow-content">
+                    <div class="modal-header">
+                        <!-- 添加退出按钮 -->
+                        <button class="exit-slideshow">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="slideshow-container">
+                            <div class="slide-wrapper">
+                                <div id="slideshow-slides"></div>
+                            </div>
+                            <!-- 左侧箭头按钮 -->
+                            <button id="prev-slide" class="control-btn left-btn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <!-- 右侧箭头按钮 -->
+                            <button id="next-slide" class="control-btn right-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <!-- 页码信息 -->
+                            <div class="slide-info">
+                                <span id="current-slide">1</span> / <span id="total-slides">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 照片容器 -->
+            <div id="photo-container" class="photo-container">
+                <div class="flip-card">
+                    <div id="photo-front" class="flip-front">
+                        <img id="photo-preview" class="photo-preview" src="" alt="照片预览">
+                        <button id="change-photo" class="change-photo-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="flip-front-buttons">
+                            <button id="send-to-capsule" class="send-to-capsule">
+                                <i class="fas fa-paper-plane"></i>
+                                投送胶囊
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flip-back">
+                        <button id="back-to-front" class="back-to-front">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <div class="memory-display"></div>
+                        <div class="edit-area">
+                            <div class="edit-prompt">点击这里写下这一刻的心情...</div>
+                            <div class="edit-form" style="display: none;">
+                                <input type="text" class="date-input" placeholder="输入日期（例如：2024/3/21）">
+                                <textarea class="memory-input" placeholder="写下这一刻的心情..."></textarea>
+                                <button type="button" class="save-button" id="save-memory">
+                                    <i class="fas fa-save"></i>
+                                    保存记忆
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>Time Capsule &copy; 2023 | 每一份爱都值得被永恒珍藏</p>
+        </footer>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <nav>
+        <div class="nav-links">
+            <a href="#" class="active"><i class="fas fa-home"></i></a>
+            <a href="#"><i class="fas fa-feather-alt"></i></a>
+            <a href="#"><i class="fas fa-inbox"></i></a>
+            <a href="#"><i class="fas fa-capsules"></i></a>
+        </div>
+    </nav>
+
+    <!-- 先加载翻译管理器 -->
+    <script src="js/translation.js"></script>
+    <!-- 然后加载其他脚本 -->
+    <script src="js/language.js"></script>
+    <script src="js/pet-info.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/letter.js"></script>
+    <script src="js/inbox.js"></script>
+    <script src="js/capsule.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html> 

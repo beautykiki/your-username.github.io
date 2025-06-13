@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Home",
+    "write": "Write",
+    "inbox": "Inbox",
+    "capsule": "Time Capsule"
+  },
+  "pet": {
+    "title": "Pet Information",
+    "name": "Name",
+    "namePlaceholder": "Your pet's name",
+    "type": "Type",
+    "selectType": "Select Type",
+    "typeCat": "Cat",
+    "typeDog": "Dog",
+    "typeOther": "Other",
+    "breed": "Breed",
+    "breedPlaceholder": "e.g., Golden Retriever, Ragdoll",
+    "status": "Status",
+    "statusWithMe": "💖 With Me",
+    "statusInHeaven": "🪐 In Heaven",
+    "birthDate": "Birth Date",
+    "adoptDate": "Adoption Date",
+    "datePlaceholder": "e.g., 2025/6/8",
+    "dateFormat": "Please use YYYY/MM/DD format",
+    "save": "Save Pet Info",
+    "uploadPhoto": "Upload Pet Photo",
+    "uploadTip": "Supports JPG, PNG, GIF, WEBP formats, max 5MB",
+    "unnamed": "Unnamed",
+    "age": "Age",
+    "togetherDays": "Days Together"
+  },
+  "letter": {
+    "title": "Letter to {name}",
+    "placeholder": "Write your message...",
+    "saveDraft": "Save Draft",
+    "send": "Send to Rainbow Bridge",
+    "autoGenerate": "Help Me Express ✨"
+  },
+  "capsule": {
+    "upload": "Click to Upload Photo",
+    "photoCount": "{count} Photos Stored",
+    "clear": "Clear Photos",
+    "slideshow": "Play Slideshow",
+    "memoryTitle": "Time Memories"
+  },
+  "common": {
+    "appName": "Time Capsule",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Loading..."
+  }
+} 
